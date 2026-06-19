@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx:1.27
+    container_name: proxy-r-web
+    #Mantém um terminal interativo aberto
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app-java
+    networks:
+      - network-proxy-r
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db-NFS
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    #testa o ping 20 vezes a cada 5 segundos se o banco esta pronto, se sim 
+    # o spring-boot é executado
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    #desativei ports porque n quero q o sql
+    #seja acesado de fora do container
+    #ports:
+      #- "3306:3306"
+    #deixei a porta exposta intenamente,
+    # mas nem tem necessidade
+    #porque ja é acessada pela rede do sql
+    expose:
+      - "3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - network-sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    expose:
+      - "80"
+    depends_on:
+      - mysql
+    networks:   
+      - network-sql
+      - network-proxy-r
+  
+  db-init:
+    image: mysql:8.0
+    container_name: db-init-banco
+    depends_on:
+      - mysql
+    volumes:
+      - ./projeto-tabela-periodica-main/banco:/scripts
+    entrypoint: >
+      bash -c "
+      sleep 25 &&
+      mysql -h mysql -u root -proot < /scripts/Criacao.sql &&
+      mysql -h mysql -u root -proot tabela_periodica < /scripts/Dados.sql &&
+      mysql -h mysql -u root -proot tabela_periodica < /scripts/Views.sql"
+    networks:
+      - network-sql
+
+  app-java:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-java        
+    expose:
+      - "8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/tabela_periodica
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      mysql:
+      #recebe resposta se o banco esta pronto
+        condition: service_healthy
+    networks:
+      - network-proxy-r
+      - network-sql
+
+volumes:
+  mysql-data:
+
+networks:
+  network-proxy-r:
+    driver: bridge
+  
+  network-sql:
+    driver: bridge

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+    </style>
+    <title>Periodic Five | Elemento</title>
+</head>
+<body class="vh-100">
+    
+<header class="header">
+    <h3 class="titulo" th:onclick="'redirectToElementos()'">Periodic Five</h3>
+</header>
+
+<container class="content">    
+        <div class="telaDesk">
+            <div class="row">
+                <div class="col-5">
+                    <div class="imgCenter">
+                        <img th:src="${elemento.imagem}" alt="" class="imagemElemento">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="tabela">
+                        <h5>Tabela de Informações</h5>
+                        <br>
+                        <table class="tabelaInformacoes">
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Título</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.nome}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Sigla</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.sigla}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Número Atômico</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.numeroAtomico}"></span>
+                                </td>
+                            </tr>
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Densidade</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.densidade}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Temperatura de Fusão</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.pontoDeFusao}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Temperatura de Ebulição</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.pontoDeEbulicao}"></span>
+                                </td>
+                            </tr>
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Escala de Agressividade*</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.escalaDeAgressividade}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Período</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.periodo}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Família</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.familia}">IA</span>
+                                </td>
+                            </tr>
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Escala de Reutilização**</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.escalaDeReutilizacao}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Ano de Descoberta</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.anoDescoberta}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Massa</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.massa}"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="ondeEncontrar">
+                        <h5>Onde Encontrar</h5>
+                        <br>
+                        <span class="texto" th:text="${elemento.ondeEEncontradoNaNatureza}"></span>
+                    </div>
+                    <br>
+                    <div class="aplicacao">
+                        <h5>Aplicação</h5>
+                        <br>
+                        <span class="texto" th:text="${elemento.aplicacoesDoMaterial}">Aplicações</span>
+                    </div>
+                    <div class="explicacoes">
+                        <br>
+                        <h5>*Escala de Agressividade</h5>
+                        <br>
+                        <p class="textoAgressividade">Nesta escala, valores mais altos representam elementos que são mais agressivos ao ser humano, causando reações adversas ou sendo perigosos em contato, já os de menor número representam uma ameaça menor com o contato ou a exposição.
+                        </p>
+                        <br>
+                        <h5>**Escala de Reutilização</h5>
+                        <br>
+                        <p class="textoReutilização">Nesta escala, valores mais altos representam elementos que são mais frequentemente reutilizados ou têm um alto valor de reutilização em aplicações humanas. Lembre-se de que essas atribuições são simplificações arbitrárias e não refletem completamente a complexidade das interações entre elementos químicos e seres humanos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="telaMob">
+            <div class="row">
+                <div class="col-6">
+                    <div class="imgCenter">
+                        <img th:src="${elemento.imagem}" alt="" class="imagemElemento">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="tabela">
+                        <h5>Tabela de Informações</h5>
+                        <br>
+                        <table class="tabelaInformacoes">
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Título</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.nome}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Sigla</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.sigla}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Número Atômico</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.numeroAtomico}"></span>
+                                </td>
+                            </tr>
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Densidade</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.densidade}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Temperatura de Fusão</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.pontoDeFusao}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Temperatura de Ebulição</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.pontoDeEbulicao}"></span>
+                                </td>
+                            </tr>
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Escala de Agressividade*</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.escalaDeAgressividade}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Período</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.periodo}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Família</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.familia}">IA</span>
+                                </td>
+                            </tr>
+                            <tr class="linha">
+                                <td class="celula">
+                                    <span class="caption">Escala de Reutilização**</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.escalaDeReutilizacao}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Ano de Descoberta</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.anoDescoberta}"></span>
+                                </td>
+                                <td class="celula">
+                                    <span class="caption">Massa</span>
+                                    <br>
+                                    <span class="texto" th:text="${elemento.massa}"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="ondeEncontrar">
+                        <h5>Onde Encontrar</h5>
+                        <br>
+                        <span class="texto" th:text="${elemento.ondeEEncontradoNaNatureza}"></span>
+                    </div>
+                    <br>
+                    <div class="aplicacao">
+                        <h5>Aplicação</h5>
+                        <br>
+                        <span class="texto" th:text="${elemento.aplicacoesDoMaterial}">Aplicações</span>
+                    </div>
+                    <div class="explicacoes">
+                        <br>
+                        <h5>*Escala de Agressividade</h5>
+                        <br>
+                        <p class="textoAgressividade">Nesta escala, valores mais altos representam elementos que são mais agressivos ao ser humano, causando reações adversas ou sendo perigosos em contato, já os de menor número representam uma ameaça menor com o contato ou a exposição.
+                        </p>
+                        <br>
+                        <h5>**Escala de Reutilização</h5>
+                        <br>
+                        <p class="textoReutilização">Nesta escala, valores mais altos representam elementos que são mais frequentemente reutilizados ou têm um alto valor de reutilização em aplicações humanas. Lembre-se de que essas atribuições são simplificações arbitrárias e não refletem completamente a complexidade das interações entre elementos químicos e seres humanos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</container>
+
+<footer class="text-light text-center py-3" style="padding: 5px !important;">
+    <div class="">
+        &copy; 2023 Periodic Five. Todos os direitos reservados.
+    </div>
+</footer>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+    function redirectToElementos() {
+        window.location.href = '/elementos';
+    }
+    /*]]>*/
+    </script>
+</container>
+</body>
+</html>
